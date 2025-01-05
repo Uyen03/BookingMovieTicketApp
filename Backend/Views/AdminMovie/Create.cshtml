@@ -1,0 +1,207 @@
+@model Backend.Models.Movie
+
+<h2 class="text-center mt-4">Thêm Phim Mới</h2>
+
+<div class="container mt-4">
+    <form asp-action="Create" method="post" enctype="multipart/form-data" class="border p-4 rounded shadow-sm bg-light">
+        @Html.AntiForgeryToken()
+
+        <!-- Tên phim, Ngày phát hành, Thời lượng -->
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label asp-for="Title" class="form-label">Tên phim</label>
+                <input asp-for="Title" class="form-control" placeholder="Nhập tên phim..." />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="ReleaseDate" class="form-label">Ngày phát hành</label>
+                <input type="date" asp-for="ReleaseDate" class="form-control" />
+                <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="DurationInMinutes" class="form-label">Thời lượng (phút)</label>
+                <input asp-for="DurationInMinutes" class="form-control" placeholder="Nhập thời lượng phim..." />
+                <span asp-validation-for="DurationInMinutes" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Poster và Trailer -->
+        <div class="row g-3 mt-3">
+            <div class="col-md-6">
+                <label class="form-label">Poster (Hình ảnh)</label>
+                <input type="file" name="PosterFile" class="form-control" onchange="previewPoster(event)"
+                    accept="image/*" />
+                <div class="mt-2">
+                    <img id="posterPreview" src="#" alt="Poster Preview"
+                        style="display:none; width: 150px; height: 225px; object-fit: cover; border: 1px solid #ddd; border-radius: 5px;" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="TrailerUrl" class="form-label">Trailer (URL)</label>
+                <input asp-for="TrailerUrl" id="trailerUrl" class="form-control"
+                    placeholder="Nhập link YouTube hoặc URL khác..." />
+                <span asp-validation-for="TrailerUrl" class="text-danger"></span>
+                <div class="mt-2">
+                    <iframe id="trailerPreview" style="display:none; width: 100%; max-height: 200px;" frameborder="0"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thể loại -->
+        <div class="row g-3 mt-3">
+            <div class="col-md-6">
+                <label asp-for="Genres" class="form-label">Thể loại (phân cách bằng dấu phẩy)</label>
+                <input asp-for="Genres" class="form-control" placeholder="Nhập các thể loại phim..." />
+                <span asp-validation-for="Genres" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Định dạng phim -->
+        <div class="row g-3 mt-3">
+            <div class="col-md-6">
+                <label class="form-label">Định dạng phim</label>
+                <div class="d-flex flex-wrap gap-3">
+                    <div class="form-check">
+                        <input type="checkbox" name="Formats" value="2D" id="format-2D" class="form-check-input">
+                        <label for="format-2D" class="form-check-label">2D</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="Formats" value="3D" id="format-3D" class="form-check-input">
+                        <label for="format-3D" class="form-check-label">3D</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="Formats" value="IMAX" id="format-IMAX" class="form-check-input">
+                        <label for="format-IMAX" class="form-check-label">IMAX</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="Formats" value="4DX" id="format-4DX" class="form-check-input">
+                        <label for="format-4DX" class="form-check-label">4DX</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ngôn ngữ -->
+        <div class="row g-3 mt-3">
+            <div class="col-md-6">
+                <label class="form-label">Ngôn ngữ hỗ trợ</label>
+                <div class="d-flex flex-wrap gap-3">
+                    <div class="form-check">
+                        <input type="checkbox" name="LanguagesAvailable" value="Phụ đề" id="lang-sub"
+                            class="form-check-input">
+                        <label for="lang-sub" class="form-check-label">Phụ đề</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="LanguagesAvailable" value="Lồng tiếng" id="lang-dub"
+                            class="form-check-input">
+                        <label for="lang-dub" class="form-check-label">Lồng tiếng</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phân loại độ tuổi -->
+        <div class="row g-3 mt-3">
+            <div class="col-md-4">
+                <label asp-for="AgeRating" class="form-label">Phân loại độ tuổi</label>
+                <select asp-for="AgeRating" class="form-control">
+                    <option value="P">P</option>
+                    <option value="C13">C13</option>
+                    <option value="C18">C18</option>
+                </select>
+                <span asp-validation-for="AgeRating" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Trạng thái -->
+        <div class="row g-3 mt-3">
+            <div class="col-md-4">
+                <label asp-for="Status" class="form-label">Trạng thái</label>
+                <select asp-for="Status" class="form-control">
+                    <option value="ComingSoon">Phim sắp chiếu</option>
+                    <option value="NowShowing">Phim đang chiếu</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Chọn diễn viên -->
+        <div class="row g-3 mt-3">
+            <div class="col-md-12">
+                <label class="form-label">Chọn diễn viên</label>
+                <input type="text" id="actorSearch" class="form-control mb-2" placeholder="Tìm kiếm diễn viên...">
+                <div id="actorList" class="border p-2" style="max-height: 200px; overflow-y: auto;">
+                    @foreach (var actor in ViewBag.Actors as List<Backend.Models.Actor>)
+                    {
+                        <div class="form-check actor-item" data-name="@actor.Name.ToLower()">
+                            <input type="checkbox" name="actorIds" value="@actor.Id" class="form-check-input"
+                                id="actor-@actor.Id" />
+                            <label class="form-check-label" for="actor-@actor.Id">@actor.Name</label>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Mô tả -->
+        <div class="row g-3 mt-3">
+            <div class="col-12">
+                <label asp-for="Description" class="form-label">Mô tả</label>
+                <textarea asp-for="Description" class="form-control" rows="4"
+                    placeholder="Nhập mô tả phim..."></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Nút Lưu -->
+        <div class="mt-4 d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary w-45 me-3">Lưu</button>
+            <a asp-action="Index" class="btn btn-secondary w-45">Hủy</a>
+        </div>
+    </form>
+</div>
+
+<!-- JavaScript -->
+<script>
+    function previewPoster(event) {
+        const posterPreview = document.getElementById('posterPreview');
+        posterPreview.src = URL.createObjectURL(event.target.files[0]);
+        posterPreview.style.display = 'block';
+    }
+
+    document.getElementById('trailerUrl').addEventListener('input', function () {
+        const trailerPreview = document.getElementById('trailerPreview');
+        const url = this.value;
+
+        if (url.includes('youtube.com') || url.includes('youtu.be')) {
+            const videoId = extractYouTubeVideoId(url);
+            if (videoId) {
+                trailerPreview.src = `https://www.youtube.com/embed/${videoId}`;
+                trailerPreview.style.display = 'block';
+            } else {
+                trailerPreview.src = '';
+                trailerPreview.style.display = 'none';
+                alert('URL không hợp lệ. Vui lòng nhập URL từ YouTube.');
+            }
+        } else {
+            trailerPreview.src = '';
+            trailerPreview.style.display = 'none';
+            alert('Chỉ hỗ trợ liên kết từ YouTube.');
+        }
+    });
+    function extractYouTubeVideoId(url) {
+        const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+        const match = url.match(regex);
+        return match ? match[1] : null;
+    }
+
+    document.getElementById('actorSearch').addEventListener('input', function () {
+        const searchValue = this.value.toLowerCase();
+        const actorItems = document.querySelectorAll('.actor-item');
+        actorItems.forEach(function (item) {
+            const actorName = item.getAttribute('data-name');
+            item.style.display = actorName.includes(searchValue) ? 'block' : 'none';
+        });
+    });
+</script>

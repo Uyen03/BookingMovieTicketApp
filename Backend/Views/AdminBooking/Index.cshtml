@@ -1,0 +1,106 @@
+@model IEnumerable<Backend.Models.Booking>
+
+<h2 class="text-center mt-4">Danh Sách Đặt Vé</h2>
+
+<div class="container mt-4">
+    <!-- Bảng Danh Sách Đặt Vé -->
+    <div class="table-responsive">
+        <table class="table table-hover table-striped align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Người Dùng</th>
+                    <th>Phim</th>
+                    <th>Thời Gian</th>
+                    <th>Phòng Chiếu</th>
+                    <th>Ghế</th>
+                    <th>Combo</th>
+                    <th>Tổng Tiền</th>
+                    <th>Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var booking in Model)
+                {
+                    <tr>
+                        <td>@booking.Id</td>
+                        <td>
+                            <strong>@booking.User.Username</strong>
+                            <p class="text-muted mb-0"><small>@booking.User.Email</small></p>
+                        </td>
+                        <td>@booking.Showtime.Movie.Title</td>
+                        <td>@booking.Showtime.StartTime.ToString("g")</td>
+                        <td>@booking.Showtime.Screen.Name</td>
+                        <td>
+                            @if (booking.Seats != null && booking.Seats.Any())
+                            {
+                                @string.Join(", ", booking.Seats.Select(s => s.SeatNumber))
+                            }
+                            else
+                            {
+                                <span class="text-muted">Không có</span>
+                            }
+                        </td>
+                        <td>
+                            @if (booking.Snacks != null && booking.Snacks.Any())
+                            {
+                                @string.Join(", ", booking.Snacks.Select(sn => $"{sn.Name} x{sn.Quantity}"))
+                            }
+                            else
+                            {
+                                <span class="text-muted">Không có</span>
+                            }
+                        </td>
+                        <td>@booking.TotalPrice.ToString("C")</td>
+                        <td>
+                            <div class="btn-group">
+                                <a asp-action="Details" asp-route-id="@booking.Id" class="btn btn-primary btn-sm me-2">
+                                    <i class="bi bi-eye"></i> Xem
+                                </a>
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    data-id="@booking.Id" data-name="@booking.User.Username">
+                                    <i class="bi bi-trash"></i> Xóa
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal Xóa -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Xác nhận xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xóa đặt vé của người dùng <strong id="itemName"></strong>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <form id="deleteForm" method="post" asp-action="Delete">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="deleteId" name="id" />
+                    <button type="submit" class="btn btn-danger">Xóa</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const id = button.getAttribute('data-id');
+        const name = button.getAttribute('data-name');
+
+        document.getElementById('itemName').textContent = name;
+        document.getElementById('deleteId').value = id;
+    });
+</script>

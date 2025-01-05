@@ -1,0 +1,42 @@
+@model Backend.Models.Theatre
+
+@{
+    ViewData["Title"] = "Chi tiết rạp";
+}
+
+<h2>Chi tiết rạp</h2>
+
+<div>
+    <h4>@Model.Name</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Tên rạp</dt>
+        <dd class="col-sm-10">@Model.Name</dd>
+
+        <dt class="col-sm-2">Địa chỉ</dt>
+        <dd class="col-sm-10">@Model.FullAddress</dd>
+
+        <dt class="col-sm-2">Tiện ích</dt>
+        <dd class="col-sm-10">
+            <ul>
+                @foreach (var facility in Model.Facilities)
+                {
+                    <li>@facility</li>
+                }
+            </ul>
+        </dd>
+
+        <dt class="col-sm-2">Màn hình khả dụng</dt>
+        <dd class="col-sm-10">
+            <ul>
+                @foreach (var screen in Model.AvailableScreens)
+                {
+                    <li>@screen</li>
+                }
+            </ul>
+        </dd>
+    </dl>
+</div>
+
+<a class="btn btn-warning" href="@Url.Action("Edit", new { id = Model.Id })">Sửa</a>
+<a class="btn btn-primary" href="@Url.Action("Index")">Quay lại</a>

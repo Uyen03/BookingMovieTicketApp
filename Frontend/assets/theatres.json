@@ -1,0 +1,28 @@
+{
+  "theatres": [
+    {
+      "id": "theatre1",
+      "name": "Giga Mall Cinema",
+      "coordinates": {
+        "latitude": 10.8276003,
+        "longitude": 106.7212132
+      },
+      "facilities": ["Parking", "Hotel", "Park"],
+      "fullAddress": "Tầng 6 TTTM Giga Mall, 240, 242 Đ. Phạm Văn Đồng, Hiệp Bình Chánh, Thủ Đức, Hồ Chí Minh, Việt Nam",
+      "timings": ["10:00 AM", "1:30 PM", "6:30 PM", "9:30 PM", "12:30 AM"],
+      "availableScreens": ["3D", "2D"]
+    },
+    {
+      "id": "theatre2",
+      "name": "CGV Vincom",
+      "coordinates": {
+        "latitude": 10.7777,
+        "longitude": 106.6666
+      },
+      "facilities": ["Parking", "Food Court"],
+      "fullAddress": "Vincom Center, Quận 1, Hồ Chí Minh, Việt Nam",
+      "timings": ["9:00 AM", "12:00 PM", "3:00 PM", "6:00 PM"],
+      "availableScreens": ["IMAX", "2D"]
+    }
+  ]
+}

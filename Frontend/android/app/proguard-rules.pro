@@ -1,0 +1,2 @@
+-keep class vn.zalopay.sdk.** { *; }
+-keep class com.zalopay.sdk.** { *; }

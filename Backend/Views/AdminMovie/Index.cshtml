@@ -1,0 +1,142 @@
+@model IEnumerable<Backend.Models.Movie>
+
+<h2 class="text-center mt-4">Danh Sách Phim</h2>
+
+<div class="container mt-4">
+    <!-- Nút Thêm Phim -->
+    <div class="d-flex justify-content-end mb-4">
+        <a asp-action="Create" class="btn btn-primary btn-lg">
+            <i class="bi bi-plus-circle"></i> Thêm Phim Mới
+        </a>
+    </div>
+
+    <!-- Bảng Danh Sách Phim -->
+    <div class="table-responsive">
+        <table class="table table-hover table-striped align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Poster</th>
+                    <th>Tên Phim</th>
+                    <th>Thể Loại</th>
+                    <th>Định Dạng</th>
+                    <th>Ngôn Ngữ</th>
+                    <th>Phân Loại</th>
+                    <th>Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var movie in Model)
+                {
+                    <tr>
+                        <td>@movie.Id</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(movie.BannerUrl))
+                            {
+                                <img src="@movie.BannerUrl" alt="Poster của @movie.Title" style="width: 80px; height: 120px; object-fit: cover; border: 1px solid #ddd; border-radius: 5px;" />
+                            }
+                            else
+                            {
+                                <span class="text-muted">Không có</span>
+                            }
+                        </td>
+                        <td>
+                            <strong>@movie.Title</strong>
+                            <p class="text-muted mb-0">
+                                <small>Thời lượng: @movie.DurationInMinutes phút</small>
+                            </p>
+                        </td>
+                        <td>
+                            @if (movie.Genres != null && movie.Genres.Any())
+                            {
+                                @foreach (var genre in movie.Genres)
+                                {
+                                    <span class="badge bg-success me-1">@genre.Trim()</span>
+                                }
+                            }
+                            else
+                            {
+                                <span class="text-muted">Không có</span>
+                            }
+                        </td>
+                        <td>
+                            @if (movie.Formats != null && movie.Formats.Any())
+                            {
+                                @foreach (var format in movie.Formats)
+                                {
+                                    <span class="badge bg-info me-1">@format</span>
+                                }
+                            }
+                            else
+                            {
+                                <span class="text-muted">Không có</span>
+                            }
+                        </td>
+                        <td>
+                            @if (movie.LanguagesAvailable != null && movie.LanguagesAvailable.Any())
+                            {
+                                @foreach (var language in movie.LanguagesAvailable)
+                                {
+                                    <span class="badge bg-primary me-1">@language</span>
+                                }
+                            }
+                            else
+                            {
+                                <span class="text-muted">Không có</span>
+                            }
+                        </td>
+                        <td>
+                            <span class="badge bg-warning text-dark">@movie.AgeRating</span>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <a asp-action="Edit" asp-route-id="@movie.Id" class="btn btn-warning btn-sm me-2">
+                                    <i class="bi bi-pencil-square"></i> Sửa
+                                </a>
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    data-id="@movie.Id" data-name="@movie.Title">
+                                    <i class="bi bi-trash"></i> Xóa
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Xác nhận xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xóa phim <strong id="itemName"></strong>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <form id="deleteForm" method="post" asp-action="Delete">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="deleteId" name="id" />
+                    <button type="submit" class="btn btn-danger">Xóa</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const id = button.getAttribute('data-id');
+        const name = button.getAttribute('data-name');
+
+        document.getElementById('itemName').textContent = name;
+        document.getElementById('deleteId').value = id;
+    });
+</script>

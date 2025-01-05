@@ -1,0 +1,210 @@
+@{
+    ViewData["Title"] = "Thống kê Doanh thu";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center text-primary mb-4">@ViewData["Title"]</h1>
+
+    <!-- Tổng doanh thu dự kiến -->
+    <section class="mb-5">
+        <h2 class="text-center text-success">Tổng doanh thu dự kiến</h2>
+        <div class="d-flex justify-content-center align-items-center flex-column">
+            @if (ViewBag.TotalPendingRevenue != null)
+            {
+                <p class="fs-1 fw-bold text-success">
+                    @string.Format("{0:N0}", ViewBag.TotalPendingRevenue) VNĐ
+                </p>
+            }
+            else
+            {
+                <p class="text-muted">Không có dữ liệu về tổng doanh thu.</p>
+            }
+        </div>
+    </section>
+
+    <hr />
+
+    <!-- Doanh thu theo rạp -->
+    <section class="mb-5">
+        <h2 class="text-center text-primary">Doanh thu theo rạp</h2>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Rạp</th>
+                        <th>Doanh thu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.RevenueByTheatre != null && ((IEnumerable<dynamic>)ViewBag.RevenueByTheatre).Any())
+                    {
+                        foreach (var theatre in (IEnumerable<dynamic>)ViewBag.RevenueByTheatre)
+                        {
+                            <tr>
+                                <td>@theatre.TheatreName</td>
+                                <td>@string.Format("{0:N0}", theatre.TotalRevenue) VNĐ</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="2" class="text-center text-muted">Không có dữ liệu về doanh thu theo rạp.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <canvas id="theatreChart" class="mt-4" style="max-width: 400px; margin: 0 auto;"></canvas>
+    </section>
+
+    <hr />
+
+    <!-- Doanh thu theo phim -->
+    <section class="mb-5">
+        <h2 class="text-center text-warning">Doanh thu theo phim</h2>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Phim</th>
+                        <th>Doanh thu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.RevenueByMovie != null && ((IEnumerable<dynamic>)ViewBag.RevenueByMovie).Any())
+                    {
+                        foreach (var movie in (IEnumerable<dynamic>)ViewBag.RevenueByMovie)
+                        {
+                            <tr>
+                                <td>@movie.MovieTitle</td>
+                                <td>@string.Format("{0:N0}", movie.TotalRevenue) VNĐ</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="2" class="text-center text-muted">Không có dữ liệu về doanh thu theo phim.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <canvas id="movieChart" class="mt-4"></canvas>
+    </section>
+
+    <hr />
+
+    <!-- Ghi chú -->
+    <section class="mb-5">
+        <h2 class="text-center text-muted">Ghi chú</h2>
+        <p class="text-center text-muted">
+            Toàn bộ số liệu được tính từ các đơn hàng đang ở trạng thái <strong>Pending</strong>.
+        </p>
+    </section>
+</div>
+
+<!-- Include Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Hàm định dạng tiền VNĐ
+    const formatCurrency = (value) => {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
+    };
+
+    // Data for theatre chart
+    const theatreData = {
+        labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(
+         ((IEnumerable<dynamic>)ViewBag.RevenueByTheatre)?.Select(t => t.TheatreName)
+         )),
+        datasets: [{
+            label: 'Doanh thu theo rạp',
+            data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(
+           ((IEnumerable<dynamic>)ViewBag.RevenueByTheatre)?.Select(t => t.TotalRevenue)
+           )),
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 99, 132, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(255, 159, 64, 0.7)'
+            ],
+            borderColor: 'rgba(255, 255, 255, 1)',
+            borderWidth: 1
+        }]
+    };
+
+    // Data for movie chart
+    const movieData = {
+        labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(
+         ((IEnumerable<dynamic>)ViewBag.RevenueByMovie)?.Select(m => m.MovieTitle)
+         )),
+        datasets: [{
+            label: 'Doanh thu theo phim',
+            data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(
+           ((IEnumerable<dynamic>)ViewBag.RevenueByMovie)?.Select(m => m.TotalRevenue)
+           )),
+            backgroundColor: 'rgba(255, 206, 86, 0.5)',
+            borderColor: 'rgba(255, 206, 86, 1)',
+            borderWidth: 2
+        }]
+    };
+
+    // Render theatre chart
+    new Chart(document.getElementById('theatreChart'), {
+        type: 'doughnut',
+        data: theatreData,
+        options: {
+            responsive: true,
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((context.raw / total) * 100).toFixed(2);
+                            return `${context.label}: ${formatCurrency(context.raw)} (${percentage}%)`;
+                        }
+                    }
+                }
+            },
+            animation: {
+                duration: 1500,
+                easing: 'easeInOutBounce'
+            }
+        }
+    });
+
+    // Render movie chart
+    new Chart(document.getElementById('movieChart'), {
+        type: 'bar',
+        data: movieData,
+        options: {
+            responsive: true,
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            return `${context.dataset.label}: ${formatCurrency(context.raw)}`;
+                        }
+                    }
+                }
+            },
+            animation: {
+                duration: 2000,
+                easing: 'easeInOutQuart'
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function (value) {
+                            return formatCurrency(value);
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>

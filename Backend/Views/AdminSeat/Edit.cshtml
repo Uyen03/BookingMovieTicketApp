@@ -1,0 +1,194 @@
+@* @model Backend.Models.Seat
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Chỉnh Sửa Sơ Đồ Ghế</h2>
+
+    <form asp-action="Edit" method="post" class="border p-4 rounded shadow-sm bg-light">
+        @Html.AntiForgeryToken()
+
+        <!-- ID Ghế Ẩn -->
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <!-- Chọn Rạp và Phòng Chiếu -->
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="theatre" class="form-label">Rạp</label>
+                <select id="theatre" name="theatre" class="form-select" onchange="fetchScreens(this.value)" required>
+                    <option value="">Chọn rạp</option>
+                    @foreach (var theatre in ViewBag.Theatres)
+                    {
+                        <option value="@theatre.Id" @(Model.Screen?.Theatre?.Id == theatre.Id ? "selected" : "")>
+                            @theatre.Name
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="screen" class="form-label">Phòng Chiếu</label>
+                <select id="screen" name="screenId" class="form-select" required>
+                    <option value="">Chọn phòng chiếu</option>
+                    @foreach (var screen in ViewBag.Screens)
+                    {
+                        <option value="@screen.Id" @(Model.ScreenId == screen.Id ? "selected" : "")>
+                            @screen.Name
+                        </option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <!-- Giá Ghế -->
+        <div class="row g-3 mt-3">
+            <div class="col-md-4">
+                <label for="regularPrice" class="form-label">Giá Ghế Thường</label>
+                <input type="number" id="regularPrice" name="regularPrice" class="form-control" value="0" min="0" step="0.01" required />
+            </div>
+            <div class="col-md-4">
+                <label for="vipPrice" class="form-label">Giá Ghế VIP</label>
+                <input type="number" id="vipPrice" name="vipPrice" class="form-control" value="0" min="0" step="0.01" required />
+            </div>
+            <div class="col-md-4">
+                <label for="couplePrice" class="form-label">Giá Ghế Đôi</label>
+                <input type="number" id="couplePrice" name="couplePrice" class="form-control" value="0" min="0" step="0.01" required />
+            </div>
+        </div>
+
+        <!-- Thanh Công Cụ Chọn Loại Ghế -->
+        <div class="mt-3">
+            <label class="form-label">Loại Ghế:</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn btn-success" onclick="setCurrentSeatType('Regular')">Ghế Thường</button>
+                <button type="button" class="btn btn-warning" onclick="setCurrentSeatType('VIP')">Ghế VIP</button>
+                <button type="button" class="btn btn-danger" onclick="setCurrentSeatType('Couple')">Ghế Đôi</button>
+            </div>
+        </div>
+
+        <!-- Hiển Thị và Chỉnh Sửa Sơ Đồ Ghế -->
+        <div class="mt-3">
+            <button type="button" class="btn btn-secondary w-100" onclick="renderSeatArrangement()">Hiển Thị Sơ Đồ Ghế</button>
+            <div class="screen-line mt-4">
+                <p>Màn Hình</p>
+            </div>
+            <div id="seatPreview" class="grid mt-4"></div>
+        </div>
+
+        <!-- Lưu -->
+        <input type="hidden" id="arrangement" name="Arrangement" value="@Model.Arrangement" />
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary w-100">Cập Nhật Sơ Đồ Ghế</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        let seatArrangement = JSON.parse('@Html.Raw(Model.Arrangement)');
+        let currentSeatType = 'Regular';
+
+        function setCurrentSeatType(type) {
+            currentSeatType = type;
+            alert(`Đã chọn loại ghế: ${type}`);
+        }
+
+        function fetchScreens(theatreId) {
+            fetch(`/AdminSeat/GetScreensByTheatre?theatreId=${theatreId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const screenSelect = document.getElementById('screen');
+                    screenSelect.innerHTML = '<option value="">Chọn phòng chiếu</option>';
+                    data.forEach(screen => {
+                        screenSelect.innerHTML += `<option value="${screen.id}" ${screen.id === @Model.ScreenId ? "selected" : ""}>${screen.name}</option>`;
+                    });
+                });
+        }
+
+        function renderSeatArrangement() {
+            const seatPreview = document.getElementById('seatPreview');
+            seatPreview.innerHTML = '';
+            seatArrangement.forEach((row, rowIndex) => {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'row-div';
+
+                row.forEach((seat, colIndex) => {
+                    const seatDiv = document.createElement('div');
+                    seatDiv.className = `seat ${seat.type.toLowerCase()}`;
+                    seatDiv.textContent = seat.seatNumber;
+                    seatDiv.onclick = () => setSeatType(seatDiv, rowIndex, colIndex);
+                    seatDiv.ondblclick = () => resetSeatType(seatDiv, rowIndex, colIndex);
+                    rowDiv.appendChild(seatDiv);
+                });
+
+                seatPreview.appendChild(rowDiv);
+            });
+        }
+
+        function setSeatType(seatDiv, rowIdx, colIdx) {
+            seatArrangement[rowIdx][colIdx].type = currentSeatType;
+            seatDiv.className = `seat ${currentSeatType.toLowerCase()}`;
+            document.getElementById('arrangement').value = JSON.stringify(seatArrangement);
+        }
+
+        function resetSeatType(seatDiv, rowIdx, colIdx) {
+            seatArrangement[rowIdx][colIdx].type = 'Regular';
+            seatDiv.className = 'seat regular';
+            document.getElementById('arrangement').value = JSON.stringify(seatArrangement);
+        }
+
+        renderSeatArrangement();
+    </script>
+}
+
+@section Styles {
+    <style>
+        .grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .row-div {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .seat {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .seat.regular {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .seat.vip {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .screen-line {
+            width: 80%;
+            height: 5px;
+            background-color: #444;
+            margin: 0 auto;
+        }
+
+        .screen-line p {
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            color: #444;
+            margin-top: -15px;
+        }
+    </style>
+} *@

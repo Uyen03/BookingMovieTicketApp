@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Backend.Models.User>
+
+<h2 class="text-center mt-4">Danh Sách Người Dùng</h2>
+
+<div class="container mt-4">
+    @* <!-- Nút Thêm Người Dùng -->
+    <div class="d-flex justify-content-start mb-4">
+        <a href="@Url.Action("Create", "AdminUser")" class="btn btn-primary btn-lg">
+            <i class="bi bi-plus-circle"></i> Thêm Người Dùng Mới
+        </a>
+    </div> *@
+
+    <div class="table-responsive">
+        <table class="table table-hover table-striped align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Tên Người Dùng</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Vai Trò</th>
+                    <th scope="col">Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.UserId</td>
+                        <td>
+                            <strong>@user.Username</strong>
+                        </td>
+                        <td>@user.Email</td>
+                        <td>@user.Phone</td>
+                        <td>@user.Role</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                @* <a href="/AdminUser/Edit/@user.Id" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Sửa
+                                </a> *@
+                                <form asp-action="Delete" method="post" style="display:inline;">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@user.UserId" />
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa người dùng này?');">
+                                        <i class="bi bi-trash"></i> Xóa
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .table-hover tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    .btn-group .btn {
+        margin-right: 5px;
+    }
+
+    .text-muted {
+        font-size: 0.85rem;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+</style>

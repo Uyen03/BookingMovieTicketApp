@@ -1,0 +1,307 @@
+@model Backend.Models.Seat
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Tạo Sơ Đồ Ghế</h2>
+
+    <form asp-action="SaveSeatsForm" method="post" class="border p-4 rounded shadow-sm bg-light">
+        @Html.AntiForgeryToken()
+
+        <!-- Chọn Rạp và Phòng Chiếu -->
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="theatre" class="form-label">Rạp</label>
+                <select id="theatre" name="theatre" class="form-select" onchange="fetchScreens(this.value)" required>
+                    <option value="">Chọn rạp</option>
+                    @foreach (var theatre in ViewBag.Theatres)
+                    {
+                        <option value="@theatre.Id">@theatre.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="screen" class="form-label">Phòng Chiếu</label>
+                <select id="screen" name="screenId" class="form-select" required>
+                    <option value="">Chọn phòng chiếu</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Chọn Số Hàng và Số Cột -->
+        <div class="row g-3 mt-3">
+            <div class="col-md-6">
+                <label for="rows" class="form-label">Số Hàng Ghế</label>
+                <input type="number" id="rows" name="rows" class="form-control" min="1" required
+                    placeholder="Nhập số hàng ghế" />
+            </div>
+            <div class="col-md-6">
+                <label for="columns" class="form-label">Số Cột Ghế</label>
+                <input type="number" id="columns" name="columns" class="form-control" min="1" required
+                    placeholder="Nhập số cột ghế" />
+            </div>
+        </div>
+
+        <!-- Chọn giá cho từng loại ghế -->
+        <div class="row g-3 mt-3">
+            <div class="col-md-4">
+                <label for="regularPrice" class="form-label">Giá Ghế Thường</label>
+                <input type="number" id="regularPrice" name="regularPrice" class="form-control" min="0" step="0.01"
+                    required placeholder="Nhập giá ghế thường" />
+            </div>
+            <div class="col-md-4">
+                <label for="vipPrice" class="form-label">Giá Ghế VIP</label>
+                <input type="number" id="vipPrice" name="vipPrice" class="form-control" min="0" step="0.01" required
+                    placeholder="Nhập giá ghế VIP" />
+            </div>
+            <div class="col-md-4">
+                <label for="couplePrice" class="form-label">Giá Ghế Đôi</label>
+                <input type="number" id="couplePrice" name="couplePrice" class="form-control" min="0" step="0.01"
+                    required placeholder="Nhập giá ghế đôi" />
+            </div>
+        </div>
+
+        <!-- Thanh Công Cụ Chọn Loại Ghế -->
+        <div class="mt-3">
+            <label class="form-label">Loại Ghế:</label>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn btn-success" onclick="setCurrentSeatType('Regular')">Ghế
+                    Thường</button>
+                <button type="button" class="btn btn-warning" onclick="setCurrentSeatType('VIP')">Ghế VIP</button>
+                <button type="button" class="btn btn-danger" onclick="setCurrentSeatType('Couple')">Ghế Đôi</button>
+            </div>
+        </div>
+
+        <!-- Tạo Sơ Đồ Ghế -->
+        <div class="mt-3">
+            <button type="button" class="btn btn-secondary w-100" onclick="generateSeats()">Tạo Sơ Đồ Ghế</button>
+            <div class="screen-line mt-4">
+                <p>Màn Hình</p>
+            </div>
+            <div id="seatPreview" class="grid mt-4"></div>
+        </div>
+
+        <!-- Lưu Sơ Đồ Ghế -->
+        <div class="mt-4">
+            <input type="hidden" id="arrangement" name="arrangement" />
+            <button type="submit" class="btn btn-primary w-100">Lưu Sơ Đồ Ghế</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        let seatArrangement = [];
+        let currentSeatType = 'Regular';
+
+        function setCurrentSeatType(type) {
+            currentSeatType = type;
+            alert(`Đã chọn loại ghế: ${type}`);
+        }
+
+        function fetchScreens(theatreId) {
+            if (!theatreId) return;
+
+            fetch(`/AdminSeat/GetScreensByTheatre?theatreId=${theatreId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const screenSelect = document.getElementById('screen');
+                    screenSelect.innerHTML = '<option value="">Chọn phòng chiếu</option>';
+                    data.forEach(screen => {
+                        screenSelect.innerHTML += `<option value="${screen.id}">${screen.name}</option>`;
+                    });
+                    seatArrangement = [];
+                    document.getElementById('seatPreview').innerHTML = '';
+                })
+                .catch(err => alert("Lỗi khi tải danh sách phòng chiếu."));
+        }
+
+
+        function generateSeats() {
+            const rows = parseInt(document.getElementById('rows').value);
+            const columns = parseInt(document.getElementById('columns').value);
+
+            const regularPrice = parseFloat(document.getElementById('regularPrice').value) || 0;
+            const vipPrice = parseFloat(document.getElementById('vipPrice').value) || 0;
+            const couplePrice = parseFloat(document.getElementById('couplePrice').value) || 0;
+
+            if (!rows || !columns || rows <= 0 || columns <= 0) {
+                alert("Số hàng và số cột phải lớn hơn 0.");
+                return;
+            }
+
+            const seatPreview = document.getElementById('seatPreview');
+            seatPreview.innerHTML = '';
+            seatArrangement = [];
+
+            for (let r = 0; r < rows; r++) {
+                const row = [];
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'row-div';
+
+                for (let c = 1; c <= columns; c++) {
+                    const seatDiv = document.createElement('div');
+                    seatDiv.className = 'seat regular';
+                    seatDiv.textContent = `${String.fromCharCode(65 + r)}${c}`;
+                    seatDiv.onclick = () => setSeatType(seatDiv, r, c - 1, regularPrice, vipPrice, couplePrice);
+                    seatDiv.ondblclick = () => resetSeatType(seatDiv, r, c - 1);
+                    rowDiv.appendChild(seatDiv);
+                    row.push({ seatNumber: seatDiv.textContent, type: 'Regular', linkedSeatNumber: null, additionalPrice: regularPrice });
+                }
+                seatPreview.appendChild(rowDiv);
+                seatArrangement.push(row);
+            }
+
+            document.getElementById('arrangement').value = JSON.stringify(seatArrangement);
+            console.log("Initial Arrangement:", seatArrangement)
+        }
+
+        function setSeatType(seatDiv, rowIdx, colIdx, regularPrice, vipPrice, couplePrice) {
+            const currentRow = seatArrangement[rowIdx];
+
+            let price = 0;
+            if (currentSeatType === 'Couple') {
+                price = couplePrice;
+                if (colIdx < currentRow.length - 1) {
+                    const nextSeat = currentRow[colIdx + 1];
+                    if (!nextSeat.linkedSeatNumber) {
+                        currentRow[colIdx].type = 'Couple';
+                        currentRow[colIdx].linkedSeatNumber = nextSeat.seatNumber;
+                        currentRow[colIdx].additionalPrice = price;
+
+
+                        nextSeat.type = 'Couple';
+                        nextSeat.linkedSeatNumber = currentRow[colIdx].seatNumber;
+                        nextSeat.additionalPrice = price;
+
+
+                        const coupleContainer = document.createElement('div');
+                        coupleContainer.className = 'couple-seat-container';
+
+                        const nextSeatDiv = seatDiv.nextElementSibling;
+                        if (nextSeatDiv) {
+                            seatDiv.parentNode.insertBefore(coupleContainer, seatDiv);
+                            coupleContainer.appendChild(seatDiv);
+                            coupleContainer.appendChild(nextSeatDiv);
+                        }
+                    } else {
+                        alert('Ghế tiếp theo đã được liên kết. Vui lòng chọn ghế khác.');
+                    }
+                } else {
+                    alert('Không thể tạo ghế đôi ở ghế cuối cùng của hàng.');
+                }
+            } else {
+                if (currentSeatType === 'Regular') price = regularPrice;
+                if (currentSeatType === 'VIP') price = vipPrice;
+
+                currentRow[colIdx].type = currentSeatType;
+                currentRow[colIdx].additionalPrice = price;
+                seatDiv.className = `seat ${currentSeatType.toLowerCase()}`;
+            }
+
+            document.getElementById('arrangement').value = JSON.stringify(seatArrangement);
+            console.log("Arrangement after set:", seatArrangement);
+        }
+
+        function resetSeatType(seatDiv, rowIdx, colIdx) {
+            const currentRow = seatArrangement[rowIdx];
+            const seat = currentRow[colIdx];
+
+            if (seat.type === 'Couple') {
+                const linkedSeatNumber = seat.linkedSeatNumber;
+                const linkedSeat = currentRow.find(s => s.seatNumber === linkedSeatNumber);
+
+                if (linkedSeat) {
+                    linkedSeat.type = 'Regular';
+                    linkedSeat.linkedSeatNumber = null;
+
+                    const linkedSeatDiv = Array.from(document.getElementsByClassName('seat'))
+                        .find(div => div.textContent === linkedSeatNumber);
+                    if (linkedSeatDiv) {
+                        linkedSeatDiv.className = 'seat regular';
+                    }
+                }
+
+                const coupleContainer = seatDiv.parentNode;
+                if (coupleContainer.classList.contains('couple-seat-container')) {
+                    coupleContainer.replaceWith(...coupleContainer.childNodes);
+                }
+            }
+
+            seat.type = 'Regular';
+            seat.linkedSeatNumber = null;
+            seatDiv.className = 'seat regular';
+
+            document.getElementById('arrangement').value = JSON.stringify(seatArrangement);
+            console.log("Arrangement after reset:", seatArrangement)
+        }
+    </script>
+}
+
+@section Styles {
+    <style>
+        .grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .row-div {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .seat {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .seat.regular {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .seat.vip {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .couple-seat-container {
+            display: inline-flex;
+            gap: 2px;
+            padding: 2px;
+            border-radius: 20px;
+            background-color: #e91e63;
+        }
+
+        .couple-seat-container .seat {
+            background-color: transparent !important;
+            border: none;
+            color: white;
+        }
+
+
+        .screen-line {
+            width: 80%;
+            height: 5px;
+            background-color: #444;
+            margin: 0 auto;
+        }
+
+        .screen-line p {
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            color: #444;
+            margin-top: -15px;
+        }
+    </style>
+}

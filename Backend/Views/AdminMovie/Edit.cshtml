@@ -1,0 +1,202 @@
+@model Backend.Models.Movie
+
+<h2 class="text-center mt-4">Chỉnh Sửa Phim</h2>
+
+<div class="container mt-4">
+    <form asp-action="Edit" method="post" enctype="multipart/form-data" class="border p-4 rounded shadow-sm bg-light">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+
+        <!-- Tên phim, Ngày phát hành, Thời lượng -->
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label asp-for="Title" class="form-label">Tên phim</label>
+                <input asp-for="Title" class="form-control" placeholder="Nhập tên phim..." />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="ReleaseDate" class="form-label">Ngày phát hành</label>
+                <input type="date" asp-for="ReleaseDate" class="form-control" />
+                <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="DurationInMinutes" class="form-label">Thời lượng (phút)</label>
+                <input asp-for="DurationInMinutes" class="form-control" placeholder="Nhập thời lượng phim..." />
+                <span asp-validation-for="DurationInMinutes" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Poster và Trailer -->
+        <div class="row g-3 mt-3">
+            <div class="col-md-6">
+                <label class="form-label">Poster (Hình ảnh)</label>
+                <input type="file" name="PosterFile" class="form-control" onchange="previewPoster(event)" accept="image/*" />
+                <div class="mt-2">
+                    @if (!string.IsNullOrEmpty(Model.BannerUrl))
+                    {
+                        <img id="posterPreview" src="@Model.BannerUrl" alt="Poster Preview" style="width: 150px; height: 225px; object-fit: cover; border: 1px solid #ddd; border-radius: 5px;" />
+                    }
+                    else
+                    {
+                        <img id="posterPreview" src="#" alt="Poster Preview" style="display:none; width: 150px; height: 225px; object-fit: cover; border: 1px solid #ddd; border-radius: 5px;" />
+                    }
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Trailer (Video)</label>
+                <input type="file" name="TrailerFile" class="form-control" onchange="previewTrailer(event)" accept="video/*" />
+                <div class="mt-2">
+                    @if (!string.IsNullOrEmpty(Model.TrailerUrl))
+                    {
+                        <video id="trailerPreview" src="@Model.TrailerUrl" controls style="width: 100%; max-height: 200px;"></video>
+                    }
+                    else
+                    {
+                        <video id="trailerPreview" controls style="display:none; width: 100%; max-height: 200px;"></video>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Thể loại -->
+        <div class="row g-3 mt-3">
+            <div class="col-md-6">
+                <label asp-for="Genres" class="form-label">Thể loại (phân cách bằng dấu phẩy)</label>
+                <input asp-for="Genres" class="form-control" placeholder="Nhập các thể loại phim, cách nhau bởi dấu phẩy..." />
+                <span asp-validation-for="Genres" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Định dạng phim -->
+        <div class="row g-3 mt-3">
+            <div class="col-md-6">
+                <label class="form-label">Định dạng phim</label>
+                <select name="Formats" multiple class="form-control">
+                    @foreach (var format in new List<string> { "2D", "3D", "IMAX", "4DX" })
+                    {
+                        @if (Model.Formats != null && Model.Formats.Contains(format))
+                        {
+                            <option value="@format" selected>@format</option>
+                        }
+                        else
+                        {
+                            <option value="@format">@format</option>
+                        }
+                    }
+                </select>
+                <small class="text-muted">Nhấn Ctrl để chọn nhiều định dạng</small>
+            </div>
+        </div>
+
+        <!-- Ngôn ngữ -->
+        <div class="row g-3 mt-3">
+            <div class="col-md-6">
+                <label class="form-label">Ngôn ngữ hỗ trợ</label>
+                <select name="LanguagesAvailable" multiple class="form-control">
+                    @foreach (var language in new List<string> { "Phụ đề Tiếng Việt", "Lồng tiếng Tiếng Việt" })
+                    {
+                        @if (Model.LanguagesAvailable != null && Model.LanguagesAvailable.Contains(language))
+                        {
+                            <option value="@language" selected>@language</option>
+                        }
+                        else
+                        {
+                            <option value="@language">@language</option>
+                        }
+                    }
+                </select>
+                <small class="text-muted">Nhấn Ctrl để chọn nhiều ngôn ngữ</small>
+            </div>
+        </div>
+
+        <!-- Phân loại độ tuổi -->
+        <div class="row g-3 mt-3">
+            <div class="col-md-4">
+                <label class="form-label">Phân loại độ tuổi</label>
+                <select asp-for="AgeRating" class="form-control">
+                    @if (Model.AgeRating == "P")
+                    {
+                        <option value="P" selected>P</option>
+                    }
+                    else
+                    {
+                        <option value="P">P</option>
+                    }
+                    @if (Model.AgeRating == "C13")
+                    {
+                        <option value="C13" selected>C13</option>
+                    }
+                    else
+                    {
+                        <option value="C13">C13</option>
+                    }
+                    @if (Model.AgeRating == "C18")
+                    {
+                        <option value="C18" selected>C18</option>
+                    }
+                    else
+                    {
+                        <option value="C18">C18</option>
+                    }
+                </select>
+                <span asp-validation-for="AgeRating" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Trạng thái -->
+        <div class="row g-3 mt-3">
+            <div class="col-md-4">
+                <label asp-for="Status" class="form-label">Trạng thái</label>
+                <select asp-for="Status" class="form-control">
+                    @if (Model.Status == "ComingSoon")
+                    {
+                        <option value="ComingSoon" selected>Phim sắp chiếu</option>
+                    }
+                    else
+                    {
+                        <option value="ComingSoon">Phim sắp chiếu</option>
+                    }
+                    @if (Model.Status == "NowShowing")
+                    {
+                        <option value="NowShowing" selected>Phim đang chiếu</option>
+                    }
+                    else
+                    {
+                        <option value="NowShowing">Phim đang chiếu</option>
+                    }
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Mô tả -->
+        <div class="row g-3 mt-3">
+            <div class="col-12">
+                <label asp-for="Description" class="form-label">Mô tả</label>
+                <textarea asp-for="Description" class="form-control" rows="4" placeholder="Nhập mô tả phim..."></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Nút Lưu -->
+        <div class="mt-4 d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary w-45 me-3">Lưu</button>
+            <a asp-action="Index" class="btn btn-secondary w-45">Hủy</a>
+        </div>
+    </form>
+</div>
+
+<!-- JavaScript -->
+<script>
+    function previewPoster(event) {
+        const posterPreview = document.getElementById('posterPreview');
+        posterPreview.src = URL.createObjectURL(event.target.files[0]);
+        posterPreview.style.display = 'block';
+    }
+
+    function previewTrailer(event) {
+        const trailerPreview = document.getElementById('trailerPreview');
+        trailerPreview.src = URL.createObjectURL(event.target.files[0]);
+        trailerPreview.style.display = 'block';
+    }
+</script>

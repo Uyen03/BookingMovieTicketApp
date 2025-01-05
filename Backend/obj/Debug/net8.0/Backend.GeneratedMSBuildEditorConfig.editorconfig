@@ -1,0 +1,147 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Backend
+build_property.RootNamespace = Backend
+build_property.ProjectDir = C:\Users\tranv\OneDrive\Desktop\BookingMovieTicket\BookingMovieTicket\Backend\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\tranv\OneDrive\Desktop\BookingMovieTicket\BookingMovieTicket\Backend
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminActor/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5BY3RvclxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminActor/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5BY3RvclxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminBooking/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Cb29raW5nXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminBooking/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Cb29raW5nXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminMovie/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Nb3ZpZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminMovie/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Nb3ZpZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminMovie/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Nb3ZpZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminRevenue/RevenueDashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5SZXZlbnVlXFJldmVudWVEYXNoYm9hcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminScreen/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5TY3JlZW5cQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminScreen/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5TY3JlZW5cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminScreen/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5TY3JlZW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminSeat/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5TZWF0XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminSeat/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5TZWF0XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminSeat/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5TZWF0XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminShowtime/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5TaG93dGltZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminShowtime/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5TaG93dGltZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminShowtime/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5TaG93dGltZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminSnackPackage/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5TbmFja1BhY2thZ2VcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminSnackPackage/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5TbmFja1BhY2thZ2VcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminSnackPackage/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5TbmFja1BhY2thZ2VcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminTheatre/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5UaGVhdHJlXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminTheatre/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5UaGVhdHJlXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminTheatre/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5UaGVhdHJlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminTheatre/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5UaGVhdHJlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/AdminUser/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Vc2VyXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tranv/OneDrive/Desktop/BookingMovieTicket/BookingMovieTicket/Backend/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-d59tb7l7w9

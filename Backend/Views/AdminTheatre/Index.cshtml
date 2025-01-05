@@ -1,0 +1,138 @@
+@model IEnumerable<Backend.Models.Theatre>
+
+<h2 class="text-center mt-4">Danh Sách Rạp Chiếu Phim</h2>
+
+<div class="container mt-4">
+    <!-- Nút Thêm Rạp -->
+    <div class="d-flex justify-content-end mb-4">
+        <a asp-action="Create" class="btn btn-primary btn-lg">
+            <i class="bi bi-plus-circle"></i> Thêm Rạp Mới
+        </a>
+    </div>
+
+    <!-- Bảng Danh Sách Rạp -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th class="text-center" style="width: 5%;">#</th>
+                    <th class="text-center" style="width: 10%;">Hình Ảnh</th>
+                    <th style="width: 20%;">Tên Rạp</th>
+                    <th style="width: 30%;">Địa Chỉ</th>
+                    <th class="text-center" style="width: 15%;">Màn Hình</th>
+                    <th class="text-center" style="width: 20%;">Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var theatre in Model)
+                    {
+                        <tr>
+                            <!-- Số thứ tự -->
+                            <td class="text-center">@theatre.Id</td>
+
+                            <!-- Hình ảnh -->
+                            <td class="text-center">
+                                @if (!string.IsNullOrEmpty(theatre.ImageUrl))
+                                {
+                                    <img src="@theatre.ImageUrl" alt="@theatre.Name" class="img-fluid rounded" 
+                                         style="width: 70px; height: 50px; object-fit: cover;" />
+                                }
+                                else
+                                {
+                                    <i class="bi bi-building fs-3 text-muted"></i>
+                                }
+                            </td>
+
+                            <!-- Tên rạp -->
+                            <td>
+                                <strong>@theatre.Name</strong>
+                            </td>
+
+                            <!-- Địa chỉ -->
+                            <td>
+                                @if (!string.IsNullOrEmpty(theatre.FullAddress))
+                                {
+                                    @theatre.FullAddress
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Không có địa chỉ</span>
+                                }
+                            </td>
+
+                            <!-- Màn hình -->
+                            <td class="text-center">
+                                @if (theatre.AvailableScreensList != null && theatre.AvailableScreensList.Any())
+                                {
+                                    @foreach (var screen in theatre.AvailableScreensList)
+                                    {
+                                        <span class="badge bg-info">@screen</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Không có</span>
+                                }
+                            </td>
+
+                            <!-- Thao tác -->
+                            <td class="text-center">
+                                <a asp-action="Edit" asp-route-id="@theatre.Id" class="btn btn-warning btn-sm me-2">
+                                    <i class="bi bi-pencil-square"></i> Sửa
+                                </a>
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    data-id="@theatre.Id" data-name="@theatre.Name">
+                                    <i class="bi bi-trash"></i> Xóa
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">Không có rạp nào để hiển thị.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal Xóa -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Xác nhận xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xóa rạp <strong id="itemName"></strong>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <form id="deleteForm" method="post" asp-action="Delete">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="deleteId" name="id" />
+                    <button type="submit" class="btn btn-danger">Xóa</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Gán dữ liệu cho modal xóa
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const id = button.getAttribute('data-id');
+        const name = button.getAttribute('data-name');
+
+        document.getElementById('itemName').textContent = name;
+        document.getElementById('deleteId').value = id;
+    });
+</script>

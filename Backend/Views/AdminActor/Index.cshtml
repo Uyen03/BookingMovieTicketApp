@@ -1,0 +1,98 @@
+@model IEnumerable<Backend.Models.Actor>
+
+<h2 class="text-center mt-4">Danh Sách Diễn Viên</h2>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-end mb-4">
+        <a asp-action="Create" class="btn btn-primary btn-lg">
+            <i class="bi bi-plus-circle"></i> Thêm Diễn Viên
+        </a>
+    </div>
+
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Tên Diễn Viên</th>
+                <th>Hình Ảnh</th>
+                <th>Vai Trò</th>
+                <th>Thao Tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var actor in Model)
+            {
+                <tr>
+                    <td>@actor.Id</td>
+                    <td>@actor.Name</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(actor.ProfilePictureUrl))
+                        {
+                            <img src="@actor.ProfilePictureUrl" alt="@actor.Name" class="actor-image">
+                        }
+                        else
+                        {
+                            <span class="text-muted">Không có</span>
+                        }
+                    </td>
+                    <td>@actor.Role</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@actor.Id" class="btn btn-warning btn-sm me-2">
+                            <i class="bi bi-pencil-square"></i> Sửa
+                        </a>
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" 
+                                data-id="@actor.Id" data-name="@actor.Name">
+                            <i class="bi bi-trash"></i> Xóa
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal Xác Nhận Xóa -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Xác Nhận Xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xóa diễn viên <strong id="actorName"></strong>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <form id="deleteForm" method="post" asp-action="Delete">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="deleteId" name="id" />
+                    <button type="submit" class="btn btn-danger">Xóa</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const id = button.getAttribute('data-id');
+        const name = button.getAttribute('data-name');
+
+        document.getElementById('actorName').textContent = name;
+        document.getElementById('deleteId').value = id;
+    });
+</script>
+
+<style>
+    .actor-image {
+        width: 80px;
+        height: 100px;
+        object-fit: cover;
+        border: 1px solid #ddd;
+        padding: 2px;
+        border-radius: 5px;
+    }
+</style>

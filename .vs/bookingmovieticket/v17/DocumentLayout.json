@@ -1,0 +1,218 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\DACN\\DOAN\\BookingMovie\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|e:\\dacn\\doan\\bookingmovie\\backend\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|solutionrelative:backend\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|e:\\dacn\\doan\\bookingmovie\\backend\\dataaccess\\firestoreservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|solutionrelative:backend\\dataaccess\\firestoreservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|e:\\dacn\\doan\\bookingmovie\\backend\\models\\movie.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|solutionrelative:backend\\models\\movie.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|e:\\dacn\\doan\\bookingmovie\\backend\\controllers\\adminusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|solutionrelative:backend\\controllers\\adminusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|e:\\dacn\\doan\\bookingmovie\\backend\\controllers\\api\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|solutionrelative:backend\\controllers\\api\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|e:\\dacn\\doan\\bookingmovie\\backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|solutionrelative:backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|e:\\dacn\\doan\\bookingmovie\\backend\\dataaccess\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|solutionrelative:backend\\dataaccess\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|e:\\dacn\\doan\\bookingmovie\\backend\\controllers\\api\\moviecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|solutionrelative:backend\\controllers\\api\\moviecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|e:\\dacn\\doan\\bookingmovie\\backend\\views\\adminuser\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|solutionrelative:backend\\views\\adminuser\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|e:\\dacn\\doan\\bookingmovie\\backend\\controllers\\adminmoviecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|solutionrelative:backend\\controllers\\adminmoviecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|e:\\dacn\\doan\\bookingmovie\\backend\\controllers\\api\\showtimecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFA2BBE5-0529-4D57-B40B-0D244714C6A9}|Backend\\Backend.csproj|solutionrelative:backend\\controllers\\api\\showtimecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 14,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FirestoreService.cs",
+              "DocumentMoniker": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\DataAccess\\FirestoreService.cs",
+              "RelativeDocumentMoniker": "Backend\\DataAccess\\FirestoreService.cs",
+              "ToolTip": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\DataAccess\\FirestoreService.cs",
+              "RelativeToolTip": "Backend\\DataAccess\\FirestoreService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-23T10:04:50.939Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\DataAccess\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "Backend\\DataAccess\\ApplicationDbContext.cs",
+              "ToolTip": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\DataAccess\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Backend\\DataAccess\\ApplicationDbContext.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABAAAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-23T09:58:12.55Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\Program.cs",
+              "RelativeDocumentMoniker": "Backend\\Program.cs",
+              "ToolTip": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\Program.cs",
+              "RelativeToolTip": "Backend\\Program.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAiwB8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-23T09:54:09.833Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\Controllers\\api\\UserController.cs",
+              "RelativeDocumentMoniker": "Backend\\Controllers\\api\\UserController.cs",
+              "ToolTip": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\Controllers\\api\\UserController.cs",
+              "RelativeToolTip": "Backend\\Controllers\\api\\UserController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAFsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-23T09:35:34.498Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Movie.cs",
+              "DocumentMoniker": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\Models\\Movie.cs",
+              "RelativeDocumentMoniker": "Backend\\Models\\Movie.cs",
+              "ToolTip": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\Models\\Movie.cs",
+              "RelativeToolTip": "Backend\\Models\\Movie.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-23T09:21:43.898Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AdminMovieController.cs",
+              "DocumentMoniker": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\Controllers\\AdminMovieController.cs",
+              "RelativeDocumentMoniker": "Backend\\Controllers\\AdminMovieController.cs",
+              "ToolTip": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\Controllers\\AdminMovieController.cs",
+              "RelativeToolTip": "Backend\\Controllers\\AdminMovieController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-23T09:21:19.013Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MovieController.cs",
+              "DocumentMoniker": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\Controllers\\api\\MovieController.cs",
+              "RelativeDocumentMoniker": "Backend\\Controllers\\api\\MovieController.cs",
+              "ToolTip": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\Controllers\\api\\MovieController.cs",
+              "RelativeToolTip": "Backend\\Controllers\\api\\MovieController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-23T09:12:06.256Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ShowtimeController.cs",
+              "DocumentMoniker": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\Controllers\\api\\ShowtimeController.cs",
+              "RelativeDocumentMoniker": "Backend\\Controllers\\api\\ShowtimeController.cs",
+              "ToolTip": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\Controllers\\api\\ShowtimeController.cs",
+              "RelativeToolTip": "Backend\\Controllers\\api\\ShowtimeController.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-23T09:11:10.516Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\Views\\AdminUser\\Index.cshtml",
+              "RelativeDocumentMoniker": "Backend\\Views\\AdminUser\\Index.cshtml",
+              "ToolTip": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\Views\\AdminUser\\Index.cshtml",
+              "RelativeToolTip": "Backend\\Views\\AdminUser\\Index.cshtml",
+              "ViewState": "AQIAAB0AAAAAAAAAAAAhwCoAAABaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-22T13:46:58.988Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "User.cs",
+              "DocumentMoniker": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Backend\\Models\\User.cs",
+              "ToolTip": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\Models\\User.cs",
+              "RelativeToolTip": "Backend\\Models\\User.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAA5wBkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-22T13:46:27.617Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AdminUserController.cs",
+              "DocumentMoniker": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\Controllers\\AdminUserController.cs",
+              "RelativeDocumentMoniker": "Backend\\Controllers\\AdminUserController.cs",
+              "ToolTip": "E:\\DACN\\DOAN\\BookingMovie\\Backend\\Controllers\\AdminUserController.cs",
+              "RelativeToolTip": "Backend\\Controllers\\AdminUserController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-22T13:45:28.723Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

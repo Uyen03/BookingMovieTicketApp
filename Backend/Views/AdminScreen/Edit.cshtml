@@ -1,0 +1,36 @@
+@model Backend.Models.Screen
+
+<h2 class="text-center mt-4">Chỉnh Sửa Phòng Chiếu</h2>
+
+<div class="container mt-4">
+    <form asp-action="Edit" method="post" class="border p-4 rounded shadow-sm bg-light">
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Tên Phòng Chiếu</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="TheatreId" class="form-label">Rạp</label>
+            <select asp-for="TheatreId" class="form-select">
+                <option value="">-- Chọn Rạp --</option>
+                @foreach (var theatre in ViewBag.Theatres as List<Backend.Models.Theatre>)
+                {
+                    <option value="@theatre.Id" selected="@(theatre.Id == Model.TheatreId ? "selected" : null)">
+                        @theatre.Name
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="TheatreId" class="text-danger"></span>
+        </div>
+
+        <div class="d-flex justify-content-center mt-4">
+            <button type="submit" class="btn btn-primary w-25 me-2">Lưu</button>
+            <a asp-action="Index" class="btn btn-secondary w-25">Hủy</a>
+        </div>
+    </form>
+</div>

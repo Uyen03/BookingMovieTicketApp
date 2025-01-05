@@ -1,0 +1,76 @@
+@model Backend.Models.Booking
+
+@{
+    ViewData["Title"] = "Chi tiết đặt vé";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center text-primary mb-4">@ViewData["Title"]</h1>
+
+    <!-- Thông tin người dùng -->
+    <div class="card mb-4">
+        <div class="card-header bg-info text-white">
+            <h3 class="card-title mb-0">Thông tin người dùng</h3>
+        </div>
+        <div class="card-body">
+            <p><strong>Tên:</strong> @Model.User.Username</p>
+            <p><strong>Email:</strong> @Model.User.Email</p>
+            <p><strong>Điện thoại:</strong> @Model.User.Phone</p>
+        </div>
+    </div>
+
+    <!-- Thông tin phim -->
+    <div class="card mb-4">
+        <div class="card-header bg-warning text-white">
+            <h3 class="card-title mb-0">Thông tin phim</h3>
+        </div>
+        <div class="card-body">
+            <p><strong>Phim:</strong> @Model.Showtime.Movie.Title</p>
+            <p><strong>Thời gian:</strong> @Model.Showtime.StartTime.ToString("dd/MM/yyyy HH:mm")</p>
+            <p><strong>Phòng chiếu:</strong> @Model.Showtime.Screen.Name</p>
+            <p><strong>Ghế:</strong> @string.Join(", ", Model.Seats.Select(s => s.SeatNumber))</p>
+        </div>
+    </div>
+
+    <!-- Combo bắp nước -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            <h3 class="card-title mb-0">Combo bắp nước</h3>
+        </div>
+        <div class="card-body">
+            @if (Model.Snacks != null && Model.Snacks.Any())
+            {
+                <ul class="list-group">
+                    @foreach (var snack in Model.Snacks)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            @snack.Name
+                            <span class="badge bg-primary rounded-pill">x@snack.Quantity</span>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="text-muted">Không có combo bắp nước.</p>
+            }
+        </div>
+    </div>
+
+    <!-- Tổng tiền -->
+    <div class="card mb-4">
+        <div class="card-header bg-danger text-white">
+            <h3 class="card-title mb-0">Tổng tiền</h3>
+        </div>
+        <div class="card-body">
+            <p class="fs-4 fw-bold text-danger">@Model.TotalPrice.ToString("C", new
+                System.Globalization.CultureInfo("vi-VN"))</p>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <a href="@Url.Action("Index", "AdminBooking")" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Quay lại
+        </a>
+    </div>
+</div>

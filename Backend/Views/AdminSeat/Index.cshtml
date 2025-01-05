@@ -1,0 +1,211 @@
+@model IEnumerable<dynamic>
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Danh Sách Sơ Đồ Ghế</h2>
+
+    <table class="table table-bordered table-striped text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Rạp</th>
+                <th>Phòng Chiếu</th>
+                <th>Số Lượng Ghế</th>
+                <th>Giá Ghế Thường</th>
+                <th>Giá Ghế VIP</th>
+                <th>Giá Ghế Đôi</th>
+                <th>Hành Động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var seat in Model)
+            {
+                <tr>
+                    <td>@seat.Seat.Id</td>
+                    <td>@(seat.Seat.Screen?.Theatre?.Name ?? "Không xác định")</td>
+                    <td>@(seat.Seat.Screen?.Name ?? "Không xác định")</td>
+                    <td>@seat.TotalSeats</td>
+                    <td>@string.Format("{0:C}", seat.RegularPrice)</td>
+                    <td>@string.Format("{0:C}", seat.VipPrice)</td>
+                    <td>@string.Format("{0:C}", seat.CouplePrice)</td>
+                    <td>
+                        <button type="button" class="btn btn-info btn-sm" onclick="viewArrangement(@seat.Seat.Id)">
+                            Xem Sơ Đồ
+                        </button>
+                        <a href="/AdminSeat/Edit/@seat.Seat.Id" class="btn btn-warning btn-sm">Chỉnh Sửa</a>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="showDeleteModal(@seat.Seat.Id)">
+                            Xóa
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal hiển thị sơ đồ ghế -->
+<div id="seatModal" class="modal fade" tabindex="-1" aria-labelledby="seatModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="seatModalLabel">Sơ Đồ Ghế</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="screen-symbol text-center">
+                    <div class="screen-text">Màn Hình</div>
+                    <div class="screen-line"></div>
+                </div>
+                <div id="seatPreview" class="grid"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal xác nhận xóa -->
+<div id="deleteModal" class="modal fade" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Xác Nhận Xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa sơ đồ ghế này?</p>
+            </div>
+            <div class="modal-footer">
+                <form id="deleteForm" method="post">
+                    @Html.AntiForgeryToken()
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-danger">Xóa</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Hiển thị sơ đồ ghế
+        function viewArrangement(seatId) {
+            fetch(`/AdminSeat/GetSeatArrangement?seatId=${seatId}`)
+                .then(response => {
+                    if (!response.ok) throw new Error(`API Error: ${response.status}`);
+                    return response.json();
+                })
+                .then(data => {
+                    renderSeatArrangement(data, 'seatPreview');
+                    const modal = new bootstrap.Modal(document.getElementById('seatModal'));
+                    modal.show();
+                })
+                .catch(err => console.error('Không thể tải sơ đồ ghế:', err));
+        }
+
+        // Render sơ đồ ghế
+        function renderSeatArrangement(data, containerId) {
+            const seatPreview = document.getElementById(containerId);
+            seatPreview.innerHTML = '';
+
+            data.forEach(row => {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'row-div';
+
+                row.forEach(seat => {
+                    if (seat.type === 'Couple' && seat.linkedSeatNumber) {
+                        const coupleContainer = document.createElement('div');
+                        coupleContainer.className = 'couple-seat-container';
+
+                        const seatDiv1 = document.createElement('div');
+                        seatDiv1.textContent = seat.seatNumber;
+                        seatDiv1.className = 'seat couple';
+
+                        const seatDiv2 = document.createElement('div');
+                        seatDiv2.textContent = seat.linkedSeatNumber;
+                        seatDiv2.className = 'seat couple';
+
+                        coupleContainer.appendChild(seatDiv1);
+                        coupleContainer.appendChild(seatDiv2);
+                        rowDiv.appendChild(coupleContainer);
+                    } else {
+                        const seatDiv = document.createElement('div');
+                        seatDiv.textContent = seat.seatNumber;
+                        seatDiv.className = `seat ${seat.type.toLowerCase()}`;
+                        rowDiv.appendChild(seatDiv);
+                    }
+                });
+
+                seatPreview.appendChild(rowDiv);
+            });
+        }
+
+        // Hiển thị modal xác nhận xóa
+        function showDeleteModal(seatId) {
+            const deleteForm = document.getElementById('deleteForm');
+            deleteForm.action = `/AdminSeat/Delete/${seatId}`;
+            const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            modal.show();
+        }
+    </script>
+}
+
+@section Styles {
+    <style>
+        .grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .row-div {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .seat {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .seat.regular {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .seat.vip {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .couple-seat-container {
+            display: inline-flex;
+            gap: 2px;
+            padding: 2px;
+            border-radius: 20px;
+            background-color: #e91e63;
+        }
+
+        .couple-seat-container .seat {
+            background-color: transparent !important;
+            border: none;
+            color: white;
+        }
+
+        .screen-line {
+            width: 80%;
+            height: 5px;
+            background-color: #444;
+            margin: 0 auto;
+        }
+    </style>
+}

@@ -1,0 +1,37 @@
+{
+  "movies": [
+    {
+      "title": "Inception",
+      "description": "A mind-bending thriller where dreams are manipulated.",
+      "actors": ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Ellen Page"],
+      "like": 90,
+      "bannerUrl": "https://w0.peakpx.com/wallpaper/593/742/HD-wallpaper-avatar-2-the-way-of-water-banner.jpg",
+      "screens": ["IMAX", "2D", "3D"],
+      "releaseDate": "2010-07-16",
+      "userVotes": ["user123", "user456", "user789"],
+      "duration": "2h 28m"
+    },
+    {
+      "title": "The Dark Knight",
+      "description": "The story of Batman's battle against the Joker.",
+      "actors": ["Christian Bale", "Heath Ledger", "Aaron Eckhart"],
+      "like": 95,
+      "bannerUrl": "https://w0.peakpx.com/wallpaper/593/742/HD-wallpaper-avatar-2-the-way-of-water-banner.jpg",
+      "screens": ["IMAX", "2D", "4DX"],
+      "releaseDate": "2008-07-18",
+      "userVotes": ["user234", "user678", "user345"],
+      "duration": "2h 32m"
+    },
+    {
+      "title": "Interstellar",
+      "description": "A group of astronauts travels through a wormhole in search of a new habitable planet.",
+      "actors": ["Matthew McConaughey", "Anne Hathaway", "Jessica Chastain"],
+      "like": 92,
+      "bannerUrl": "https://w0.peakpx.com/wallpaper/593/742/HD-wallpaper-avatar-2-the-way-of-water-banner.jpg",
+      "screens": ["IMAX", "3D", "4DX"],
+      "releaseDate": "2014-11-07",
+      "userVotes": ["user567", "user890", "user123"],
+      "duration": "2h 49m"
+    }
+  ]
+}

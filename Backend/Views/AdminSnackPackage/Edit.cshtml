@@ -1,0 +1,42 @@
+@model Backend.Models.SnackPackage
+
+<h2 class="text-center mt-4">Chỉnh Sửa Gói Snack</h2>
+
+<div class="container mt-4">
+    <form asp-action="Edit" method="post">
+        <input asp-for="SnackPackageId" type="hidden" />
+
+        <div class="form-group mb-3">
+            <label asp-for="Name" class="form-label">Tên Gói</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Price" class="form-label">Giá</label>
+            <input asp-for="Price" class="form-control" type="number" step="0.01" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Description" class="form-label">Mô Tả</label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="ImageUrl" class="form-label">URL Ảnh</label>
+            <input asp-for="ImageUrl" class="form-control" type="url" />
+            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+        </div>
+
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-success me-2">Lưu Thay Đổi</button>
+            <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

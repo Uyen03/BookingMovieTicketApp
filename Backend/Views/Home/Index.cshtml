@@ -1,0 +1,143 @@
+﻿@{
+  ViewData["Title"] = "Trang quản lý";
+}
+
+<div class="container mt-5">
+  <!-- Header Section -->
+  <div class="text-center mb-5">
+    <h1 class="fw-bold text-primary">Chào mừng đến với Trang Quản lý</h1>
+    <p class="text-muted">Quản lý toàn bộ hệ thống bán vé, phim, và doanh thu một cách trực quan.</p>
+  </div>
+
+  <!-- Cards Section -->
+  <div class="row">
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm border-0 text-center">
+        <div class="card-body">
+          <i class="fas fa-film fa-3x text-warning mb-3"></i>
+          <h5 class="card-title">Phim</h5>
+          <p class="text-muted">Quản lý danh sách phim và thông tin chi tiết.</p>
+          <a href="http://localhost:5130/AdminMovie" class="btn btn-warning">Quản lý phim</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm border-0 text-center">
+        <div class="card-body">
+          <i class="fas fa-theater-masks fa-3x text-success mb-3"></i>
+          <h5 class="card-title">Rạp</h5>
+          <p class="text-muted">Quản lý danh sách rạp chiếu phim.</p>
+          <a href="http://localhost:5130/AdminTheatre" class="btn btn-success">Quản lý rạp</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm border-0 text-center">
+        <div class="card-body">
+          <i class="fas fa-ticket-alt fa-3x text-info mb-3"></i>
+          <h5 class="card-title">Đặt vé</h5>
+          <p class="text-muted">Theo dõi và quản lý các booking.</p>
+          <a href="http://localhost:5130/AdminBooking/Index" class="btn btn-info">Quản lý đặt vé</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm border-0 text-center">
+        <div class="card-body">
+          <i class="fas fa-clock fa-3x text-primary mb-3"></i>
+          <h5 class="card-title">Xuất chiếu</h5>
+          <p class="text-muted">Quản lý danh sách xuất chiếu.</p>
+          <a href="http://localhost:5130/AdminShowtime" class="btn btn-primary">Quản lý xuất chiếu</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm border-0 text-center">
+        <div class="card-body">
+          <i class="fas fa-user fa-3x text-secondary mb-3"></i>
+          <h5 class="card-title">Diễn viên</h5>
+          <p class="text-muted">Quản lý danh sách diễn viên.</p>
+          <a href="http://localhost:5130/AdminActor" class="btn btn-secondary">Quản lý diễn viên</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm border-0 text-center">
+        <div class="card-body">
+          <i class="fas fa-tv fa-3x text-danger mb-3"></i>
+          <h5 class="card-title">Phòng chiếu</h5>
+          <p class="text-muted">Quản lý danh sách phòng chiếu.</p>
+          <a href="http://localhost:5130/AdminScreen" class="btn btn-danger">Quản lý phòng chiếu</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm border-0 text-center">
+        <div class="card-body">
+          <i class="fas fa-chair fa-3x text-dark mb-3"></i>
+          <h5 class="card-title">Chỗ ngồi</h5>
+          <p class="text-muted">Quản lý danh sách chỗ ngồi.</p>
+          <a href="http://localhost:5130/AdminSeat" class="btn btn-dark">Quản lý chỗ ngồi</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm border-0 text-center">
+        <div class="card-body">
+          <i class="fas fa-users fa-3x text-primary mb-3"></i>
+          <h5 class="card-title">Người dùng</h5>
+          <p class="text-muted">Quản lý danh sách người dùng.</p>
+          <a href="http://localhost:5130/AdminUser" class="btn btn-primary">Quản lý người dùng</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm border-0 text-center">
+        <div class="card-body">
+          <i class="fas fa-utensils fa-3x text-warning mb-3"></i>
+          <h5 class="card-title">Gói Snack</h5>
+          <p class="text-muted">Quản lý danh sách gói snack.</p>
+          <a href="http://localhost:5130/AdminSnackPackage" class="btn btn-warning">Quản lý gói snack</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm border-0 text-center">
+        <div class="card-body">
+          <i class="fas fa-chart-line fa-3x text-success mb-3"></i>
+          <h5 class="card-title">Doanh thu</h5>
+          <p class="text-muted">Xem thống kê doanh thu chi tiết.</p>
+          <a href="http://localhost:5130/AdminRevenue/RevenueDashboard" class="btn btn-success">Xem doanh thu</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Chart for Revenue Overview
+    const revenueOverviewData = {
+      labels: ['Phim', 'Rạp', 'Snack'],
+      datasets: [{
+        data: [5000000, 3000000, 1000000], // Example revenue data
+        backgroundColor: ['#36A2EB', '#4CAF50', '#FFC107'],
+        hoverBackgroundColor: ['#36A2EB', '#4CAF50', '#FFC107']
+      }]
+    };
+
+    new Chart(document.getElementById('revenueOverviewChart'), {
+      type: 'doughnut',
+      data: revenueOverviewData,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+        },
+      },
+    });
+  </script>
+}

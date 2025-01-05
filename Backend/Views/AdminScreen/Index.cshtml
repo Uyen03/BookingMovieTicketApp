@@ -1,0 +1,37 @@
+@model IEnumerable<Backend.Models.Screen>
+
+<h2 class="text-center mt-4">Danh Sách Phòng Chiếu</h2>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-end mb-4">
+        <a asp-action="Create" class="btn btn-primary">Thêm Phòng Chiếu</a>
+    </div>
+
+    <table class="table table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Tên Phòng Chiếu</th>
+                <th>Rạp</th>
+                <th>Thao Tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var screen in Model)
+            {
+                <tr>
+                    <td>@screen.Id</td>
+                    <td>@screen.Name</td>
+                    <td>@screen.Theatre?.Name</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@screen.Id" class="btn btn-warning btn-sm">Sửa</a>
+                        <form asp-action="Delete" asp-route-id="@screen.Id" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
